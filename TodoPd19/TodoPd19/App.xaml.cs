@@ -23,13 +23,19 @@ namespace TodoPd19
         {
             InitializeComponent();
 
-            await NavigationService.NavigateAsync("NavigationPage/MainPage");
+            await NavigationService.NavigateAsync("NavigationPage/TodoListPage");
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>();
+            containerRegistry.RegisterForNavigation<TodoListPage, TodoListPageViewModel>();
+            containerRegistry.RegisterForNavigation<TodoItemPage, TodoItemPageViewModel>();
+
+
         }
+
+
     }
 }
