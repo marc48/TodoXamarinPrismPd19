@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              prism:ViewModelLocator.AutowireViewModel="True"
+             xmlns:b="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
              x:Class="TodoPd19.Views.TodoListPage"
              Title="Todo Pd19">
 
@@ -17,16 +18,20 @@
       </ToolbarItem.Icon>
     </ToolbarItem>
   </ContentPage.ToolbarItems>
-  <!--ItemSelected="OnListItemSelected"-->
-  <ListView ItemsSource="{Binding Path=TodoItems}" Margin="20" SelectedItem="{Binding SelectedItem}">
+  <ListView ItemsSource="{Binding Path=TodoItems}" Margin="20" SeparatorVisibility="Default">
+    <ListView.Behaviors>
+      <b:EventToCommandBehavior Command="{Binding ItemSelectedCommand}" 
+                                    EventName="ItemTapped" EventArgsParameterPath="Item" />
+    </ListView.Behaviors>
     <ListView.ItemTemplate>
       <DataTemplate>
-        <ViewCell>
+        <TextCell Text="{Binding Name}" Detail="{Binding Notes}" />
+        <!--<ViewCell>
           <StackLayout Margin="20,0,0,0" Orientation="Horizontal" HorizontalOptions="FillAndExpand">
             <Label Text="{Binding Name}" VerticalTextAlignment="Center" HorizontalOptions="StartAndExpand" />
             <Image Source="check.png" HorizontalOptions="End" IsVisible="{Binding Done}" />
           </StackLayout>
-        </ViewCell>
+        </ViewCell>-->
       </DataTemplate>
     </ListView.ItemTemplate>
   </ListView>

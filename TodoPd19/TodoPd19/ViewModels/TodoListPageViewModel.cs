@@ -23,6 +23,8 @@ namespace TodoPd19.ViewModels
         public DelegateCommand NewCommand { get; set; }
         public DelegateCommand ListCommand { get; set; }
 
+        public DelegateCommand<TodoItem> ItemSelectedCommand => new DelegateCommand<TodoItem>(OnItemSelectedCommand);
+
         public TodoListPageViewModel(INavigationService navigationService, IPageDialogService dialogService, IDbService dbService)
             : base(navigationService)
         {
@@ -34,26 +36,40 @@ namespace TodoPd19.ViewModels
             NewCommand = new DelegateCommand(AddFixEntry);
             ListCommand = new DelegateCommand(ListEntries);
 
-
         }
 
-        private void AddFixEntry()
+        private async void OnItemSelectedCommand(TodoItem item)
         {
-            //Task<int> SaveItemAsync(TodoItem item)
-            TodoItem item = new TodoItem();
-            item.ID = 0;
-            item.Name = "FixEintrag";
-            item.Notes = "Notes: Text (Länge ???)";
-            item.Done = false;
+            //await _dialogService.DisplayAlertAsync("JAKOB", "Item" + lexitem.ToString() + " getappt", "OK");
+            var p = new NavigationParameters();
+            p.Add("item", item);
 
-            _dbService.SaveItemAsync(item);
-            _dialogService.DisplayAlertAsync("AddFixEntry", "eingefügt...", "OK");
+            await _navigationService.NavigateAsync("TodoItemPage", p);
         }
 
-        private async void ListEntries()
+        private async void AddFixEntry()
+        {
+            TodoItem item = new TodoItem
+            {
+                ID = 0,
+                Name = "FixEintrag",
+                Notes = "Notes: Text (Länge ???)",
+                Done = false
+            };
+
+            await _dbService.SaveItemAsync(item);
+            await _dialogService.DisplayAlertAsync("AddFixEntry", "eingefügt...", "OK");
+
+            // Refresh Obs.collection
+            var res = await _dbService.GetItemsAsync();
+            TodoItems = new ObservableCollection<TodoItem>(res);
+        }
+
+        private async void ListEntries()   // Button L
         {
             int anzahl;
-            _todoitems = new ObservableCollection<TodoItem>(await _dbService.GetItemsAsync());
+            var res = await _dbService.GetItemsAsync();
+            TodoItems = new ObservableCollection<TodoItem>(res);  // (await _dbService.GetItemsAsync());
             anzahl = _todoitems.Count;
             await _dialogService.DisplayAlertAsync("ListEntries", "Obs.collection Anzahl: " + anzahl.ToString(), "OK");
 
@@ -66,7 +82,7 @@ namespace TodoPd19.ViewModels
 
         public async override void OnNavigatedTo(INavigationParameters parameters)
         {
-
+            // Fill List
             // Reset the 'resume' id, since we just want to re-start here
             ResumeAtTodoId = -1;
             //listView.ItemsSource = await App.Database.GetItemsAsync();

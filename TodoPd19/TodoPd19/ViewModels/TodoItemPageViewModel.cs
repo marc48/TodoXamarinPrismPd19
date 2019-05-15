@@ -12,7 +12,7 @@ using TodoPd19.Services;
 
 namespace TodoPd19.ViewModels
 {
-	public class TodoItemPageViewModel : ViewModelBase
+	public class TodoItemPageViewModel : ViewModelBase, INavigationAware
 	{
         private readonly INavigationService _navigationService;
         private readonly IPageDialogService _dialogService;
@@ -43,6 +43,21 @@ namespace TodoPd19.ViewModels
             OnSpeakClicked = new DelegateCommand(SpeakNote);
         }
 
+        public override void OnNavigatingTo(INavigationParameters parameters)
+        {
+            //int id;
+            if (parameters.ContainsKey("item"))
+            {
+                TodoItem = (TodoItem)parameters["item"];
+                //id = (int)parameters["itemid"];
+                //_todoItem = new TodoItem();
+                //_todoItem = await _dbService.GetItemAsync(id);   <<<< so!
+
+                //_dialogService.DisplayAlertAsync("Item", TodoItem.ID.ToString() + ", " + TodoItem.Name, "OK");
+
+            }
+        }
+
         private void SpeakNote()
         {
             _dialogService.DisplayAlertAsync("SpeakNote", "Not Implemented", "OK");
@@ -50,19 +65,31 @@ namespace TodoPd19.ViewModels
 
         private void CancelPage()
         {
-            _dialogService.DisplayAlertAsync("Cancel Page", "Not Implemented", "OK");
+            _dialogService.DisplayAlertAsync("Cancel Page", "Go back async", "OK");
+            _navigationService.GoBackAsync();
         }
 
         private void DeleteItem()
         {
-            _dialogService.DisplayAlertAsync("Del Item", "Not Implemented", "OK");
+            //_dialogService.DisplayAlertAsync("Del Item", "Not Implemented", "OK");
+            //_dbService.DeleteItemAsync(TodoItem item);
         }
 
         private async void SaveItem()
         {
-            Debug.WriteLine("Save Item erreicht");
-            await _dialogService.DisplayAlertAsync("Save Item", "Trying", "OK");
-            await _dbService.SaveItemAsync(TodoItem);
+            TodoItem item = new TodoItem
+            {
+                ID = 0,
+                Name = Name,
+                Notes = Notes,
+                Done = Done
+            };
+
+            await _dbService.SaveItemAsync(item);
+            await _dialogService.DisplayAlertAsync("SaveItem", "eingefügt...", "OK");
+
+            //Debug.WriteLine("Save Item erreicht");
+ 
             await _navigationService.GoBackAsync();
         }
 

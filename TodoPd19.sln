@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.572
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoPd19", "TodoPd19\TodoPd19\TodoPd19.csproj", "{66EBBC5D-BE2E-417F-90B9-193E60F0F4CA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodoPd19", "TodoPd19\TodoPd19\TodoPd19.csproj", "{66EBBC5D-BE2E-417F-90B9-193E60F0F4CA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoPd19.Android", "TodoPd19\TodoPd19.Android\TodoPd19.Android.csproj", "{BAC88C1F-215C-4B57-BD35-68463C6019AC}"
 EndProject
@@ -233,6 +233,8 @@ Global
 		{B89E995E-2502-46E6-85D6-CF4FEC0EA1AE}.Debug|ARM.Deploy.0 = Debug|ARM
 		{B89E995E-2502-46E6-85D6-CF4FEC0EA1AE}.Debug|iPhone.ActiveCfg = Debug|x86
 		{B89E995E-2502-46E6-85D6-CF4FEC0EA1AE}.Debug|iPhoneSimulator.ActiveCfg = Debug|x86
+		{B89E995E-2502-46E6-85D6-CF4FEC0EA1AE}.Debug|iPhoneSimulator.Build.0 = Debug|x86
+		{B89E995E-2502-46E6-85D6-CF4FEC0EA1AE}.Debug|iPhoneSimulator.Deploy.0 = Debug|x86
 		{B89E995E-2502-46E6-85D6-CF4FEC0EA1AE}.Debug|x64.ActiveCfg = Debug|x64
 		{B89E995E-2502-46E6-85D6-CF4FEC0EA1AE}.Debug|x64.Build.0 = Debug|x64
 		{B89E995E-2502-46E6-85D6-CF4FEC0EA1AE}.Debug|x64.Deploy.0 = Debug|x64
