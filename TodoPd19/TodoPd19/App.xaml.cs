@@ -1,5 +1,6 @@
 ﻿using Prism;
 using Prism.Ioc;
+using TodoPd19.Services;
 using TodoPd19.ViewModels;
 using TodoPd19.Views;
 using Xamarin.Forms;
@@ -33,7 +34,7 @@ namespace TodoPd19
             containerRegistry.RegisterForNavigation<TodoListPage, TodoListPageViewModel>();
             containerRegistry.RegisterForNavigation<TodoItemPage, TodoItemPageViewModel>();
 
-
+            containerRegistry.Register<IDbService, DbService>();
         }
 
 

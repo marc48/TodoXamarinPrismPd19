@@ -7,7 +7,9 @@
              Title="Todo Pd19">
 
   <ContentPage.ToolbarItems>
-    <ToolbarItem Text="+" Command="OnItemAdded">
+    <ToolbarItem Text="N" Command="{Binding NewCommand}" />
+    <ToolbarItem Text="L" Command="{Binding ListCommand}" />
+    <ToolbarItem Text="+" Command="{Binding ItemAddedCommand}">
       <ToolbarItem.Icon>
         <OnPlatform x:TypeArguments="FileImageSource">
           <On Platform="Android, UWP" Value="plus.png" />
@@ -16,7 +18,7 @@
     </ToolbarItem>
   </ContentPage.ToolbarItems>
   <!--ItemSelected="OnListItemSelected"-->
-  <ListView ItemsSource="{Binding TodoItems}" Margin="20">
+  <ListView ItemsSource="{Binding Path=TodoItems}" Margin="20" SelectedItem="{Binding SelectedItem}">
     <ListView.ItemTemplate>
       <DataTemplate>
         <ViewCell>

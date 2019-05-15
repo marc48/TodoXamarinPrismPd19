@@ -12,7 +12,6 @@ namespace TodoPd19.Services
     {
         bool initialized;
         readonly SQLiteAsyncConnection database;
-        public int ResumeAtTodoId { get; set; }      // hier ??? (war app.cs)
 
         public DbService()
         {

@@ -13,10 +13,10 @@
     <Entry Text="{Binding Notes}" />
     <Label Text="Done" />
     <Switch IsToggled="{Binding Done, Mode=TwoWay}" />
-    <Button Text="Save" Command="OnSaveClicked" />
-    <Button Text="Delete" Command="OnDeleteClicked" />
-    <Button Text="Cancel" Command="OnCancelClicked" />
-    <Button Text="Speak" Command="OnSpeakClicked" />
+    <Button Text="Save" Command="{Binding OnSaveClicked}" />
+    <Button Text="Delete" Command="{Binding OnDeleteClicked}" />
+    <Button Text="Cancel" Command="{Binding OnCancelClicked}" />
+    <Button Text="Speak" Command="{Binding OnSpeakClicked}" />
   </StackLayout>
 
 </ContentPage>

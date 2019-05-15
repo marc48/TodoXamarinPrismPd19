@@ -1,11 +1,14 @@
 ﻿using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Navigation;
+using Prism.Navigation.Xaml;
 using Prism.Services;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using TodoPd19.Models;
+using TodoPd19.Services;
 
 namespace TodoPd19.ViewModels
 {
@@ -13,6 +16,7 @@ namespace TodoPd19.ViewModels
 	{
         private readonly INavigationService _navigationService;
         private readonly IPageDialogService _dialogService;
+        private readonly IDbService _dbService;
 
         private TodoItem _todoItem;
         public TodoItem TodoItem
@@ -26,11 +30,12 @@ namespace TodoPd19.ViewModels
         public DelegateCommand OnCancelClicked { get; set; }
         public DelegateCommand OnSpeakClicked { get; set; }
 
-        public TodoItemPageViewModel(INavigationService navigationService, IPageDialogService dialogService)
+        public TodoItemPageViewModel(INavigationService navigationService, IPageDialogService dialogService, IDbService dbService)
             : base(navigationService)
         {
             _navigationService = navigationService;
             _dialogService = dialogService;
+            _dbService = dbService;
 
             OnSaveClicked = new DelegateCommand(SaveItem);
             OnDeleteClicked = new DelegateCommand(DeleteItem);
@@ -40,22 +45,25 @@ namespace TodoPd19.ViewModels
 
         private void SpeakNote()
         {
-            throw new NotImplementedException();
+            _dialogService.DisplayAlertAsync("SpeakNote", "Not Implemented", "OK");
         }
 
         private void CancelPage()
         {
-            throw new NotImplementedException();
+            _dialogService.DisplayAlertAsync("Cancel Page", "Not Implemented", "OK");
         }
 
         private void DeleteItem()
         {
-            throw new NotImplementedException();
+            _dialogService.DisplayAlertAsync("Del Item", "Not Implemented", "OK");
         }
 
-        private void SaveItem()
+        private async void SaveItem()
         {
-            throw new NotImplementedException();
+            Debug.WriteLine("Save Item erreicht");
+            await _dialogService.DisplayAlertAsync("Save Item", "Trying", "OK");
+            await _dbService.SaveItemAsync(TodoItem);
+            await _navigationService.GoBackAsync();
         }
 
         // Properties
