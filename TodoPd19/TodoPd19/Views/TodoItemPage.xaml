@@ -8,11 +8,11 @@
 
   <StackLayout Margin="20" VerticalOptions="StartAndExpand">
     <Label Text="Name" />
-    <Entry Text="{Binding Name}" />
+    <Entry Text="{Binding TodoItem.Name}" />
     <Label Text="Notes" />
-    <Entry Text="{Binding Notes}" />
+    <Entry Text="{Binding TodoItem.Notes}" />
     <Label Text="Done" />
-    <Switch IsToggled="{Binding Done, Mode=TwoWay}" />
+    <Switch IsToggled="{Binding TodoItem.Done, Mode=TwoWay}" />
     <Button Text="Save" Command="{Binding OnSaveClicked}" />
     <Button Text="Delete" Command="{Binding OnDeleteClicked}" />
     <Button Text="Cancel" Command="{Binding OnCancelClicked}" />
