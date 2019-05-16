@@ -13,7 +13,7 @@ using TodoPd19.StringResources;
 
 namespace TodoPd19.ViewModels
 {
-	public class TodoItemPageViewModel : ViewModelBase, INavigatingAware
+	public class TodoItemPageViewModel : ViewModelBase, INavigationAware
 	{
         private readonly INavigationService _navigationService;
         private readonly IPageDialogService _dialogService;
@@ -46,7 +46,7 @@ namespace TodoPd19.ViewModels
 
         public async override void OnNavigatingTo(INavigationParameters parameters)
         {
-            //int id;
+            // >>> wird nicht über DB eingesetzt, sondern über Parameter
             if (parameters.ContainsKey("item"))
             {
                 //var temp = (TodoItem)parameters["item"];  
@@ -59,9 +59,6 @@ namespace TodoPd19.ViewModels
                 Done = TodoItem.Done;
                 //TodoItem = await _dbService.GetItemAsync(id);
                 EditMode = "Edit";
-                //int id = temp.ID;
-                //_todoItem = new TodoItem();
-                //TodoItem = await _dbService.GetItemAsync(id); 
 
                 //_dialogService.DisplayAlertAsync("Item", TodoItem.ID.ToString() + ", " + TodoItem.Name, "OK");
 
@@ -98,8 +95,11 @@ namespace TodoPd19.ViewModels
             if (EditMode == "Edit")       // (TodoItem.ID > 0)
             {
                 int id = ID;
+                TodoItem.Name = Name;
+                TodoItem.Notes = Notes;
+                TodoItem.Done = Done;
                 await _dbService.UpdateItemAsync(TodoItem);
-                await _dialogService.DisplayAlertAsync("Update", "ID: " + id.ToString(), "OK");
+                //await _dialogService.DisplayAlertAsync("Update", "ID: " + id.ToString(), "OK");
             }
             else if (EditMode == "Add")
             {
@@ -112,7 +112,7 @@ namespace TodoPd19.ViewModels
                 };
 
                 await _dbService.SaveItemAsync(item);
-                await _dialogService.DisplayAlertAsync("Insert", "NEU eingefügt: " + item.Name, "OK");
+                //await _dialogService.DisplayAlertAsync("Insert", "NEU eingefügt: " + item.Name, "OK");
             }
 
             await _navigationService.GoBackAsync();
