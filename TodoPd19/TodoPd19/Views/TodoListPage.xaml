@@ -8,8 +8,9 @@
              Title="Todo Pd19">
 
   <ContentPage.ToolbarItems>
-    <ToolbarItem Text="N" Command="{Binding NewCommand}" />
-    <ToolbarItem Text="L" Command="{Binding ListCommand}" />
+    <ToolbarItem Text="F" Command="{Binding NewCommand}" />
+    <ToolbarItem Text="Do" Command="{Binding ListCommand}" />
+    <ToolbarItem Text="NDo" Command="{Binding ListCommand}" />
     <ToolbarItem Text="+" Command="{Binding ItemAddedCommand}">
       <ToolbarItem.Icon>
         <OnPlatform x:TypeArguments="FileImageSource">

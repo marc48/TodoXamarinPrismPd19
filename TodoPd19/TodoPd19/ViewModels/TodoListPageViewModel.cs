@@ -34,7 +34,7 @@ namespace TodoPd19.ViewModels
 
             ItemAddedCommand = new DelegateCommand(AddNewItem);
             NewCommand = new DelegateCommand(AddFixEntry);
-            ListCommand = new DelegateCommand(ListEntries);
+            ListCommand = new DelegateCommand(ListNotDoneEntries);
 
         }
 
@@ -53,7 +53,7 @@ namespace TodoPd19.ViewModels
             {
                 ID = 0,
                 Name = "FixEintrag",
-                Notes = "Notes: Text (Länge ???)",
+                Notes = "Notes: Text (Länge xxxxxxxxxxxxxxx)",
                 Done = false
             };
 
@@ -65,13 +65,13 @@ namespace TodoPd19.ViewModels
             TodoItems = new ObservableCollection<TodoItem>(res);
         }
 
-        private async void ListEntries()   // Button L
+        private async void ListNotDoneEntries()   
         {
             int anzahl;
-            var res = await _dbService.GetItemsAsync();
+            var res = await _dbService.GetItemsNotDoneAsync();
             TodoItems = new ObservableCollection<TodoItem>(res);  // (await _dbService.GetItemsAsync());
             anzahl = _todoitems.Count;
-            await _dialogService.DisplayAlertAsync("ListEntries", "Obs.collection Anzahl: " + anzahl.ToString(), "OK");
+            await _dialogService.DisplayAlertAsync("Undone", "Obs.collection Anzahl Undone: " + anzahl.ToString(), "OK");
 
         }
 

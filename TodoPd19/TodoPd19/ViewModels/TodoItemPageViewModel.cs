@@ -9,10 +9,11 @@ using System.Diagnostics;
 using System.Linq;
 using TodoPd19.Models;
 using TodoPd19.Services;
+using TodoPd19.StringResources;
 
 namespace TodoPd19.ViewModels
 {
-	public class TodoItemPageViewModel : ViewModelBase, INavigationAware
+	public class TodoItemPageViewModel : ViewModelBase, INavigatingAware
 	{
         private readonly INavigationService _navigationService;
         private readonly IPageDialogService _dialogService;
@@ -43,18 +44,32 @@ namespace TodoPd19.ViewModels
             OnSpeakClicked = new DelegateCommand(SpeakNote);
         }
 
-        public override void OnNavigatingTo(INavigationParameters parameters)
+        public async override void OnNavigatingTo(INavigationParameters parameters)
         {
             //int id;
             if (parameters.ContainsKey("item"))
             {
-                TodoItem = (TodoItem)parameters["item"];
-                //id = (int)parameters["itemid"];
+                //var temp = (TodoItem)parameters["item"];  
+                //TodoItem _todoItem = new TodoItem();
+                TodoItem = parameters.GetValue<TodoItem>(NavigationParams.TodoItemId);
+                ID = TodoItem.ID;
+                //StrId = "ID: " + StrId.ToString();
+                Name = TodoItem.Name;
+                Notes = TodoItem.Notes;
+                Done = TodoItem.Done;
+                //TodoItem = await _dbService.GetItemAsync(id);
+                EditMode = "Edit";
+                //int id = temp.ID;
                 //_todoItem = new TodoItem();
-                //_todoItem = await _dbService.GetItemAsync(id);   <<<< so!
+                //TodoItem = await _dbService.GetItemAsync(id); 
 
                 //_dialogService.DisplayAlertAsync("Item", TodoItem.ID.ToString() + ", " + TodoItem.Name, "OK");
 
+            }
+            else
+            {
+                EditMode = "Add";
+                //TodoItem = new TodoItem();   // sonst NULL exception beim Save neuer DS
             }
         }
 
@@ -65,35 +80,57 @@ namespace TodoPd19.ViewModels
 
         private void CancelPage()
         {
-            _dialogService.DisplayAlertAsync("Cancel Page", "Go back async", "OK");
+            //_dialogService.DisplayAlertAsync("Cancel Page", "Go back async", "OK");
             _navigationService.GoBackAsync();
         }
 
         private void DeleteItem()
         {
-            //_dialogService.DisplayAlertAsync("Del Item", "Not Implemented", "OK");
-            //_dbService.DeleteItemAsync(TodoItem item);
+            int id = TodoItem.ID;   // nur für Alert
+            _dbService.DeleteItemAsync(TodoItem);
+            _dialogService.DisplayAlertAsync("Del Item", "Deleted ID: " + id.ToString(), "OK");
+            _navigationService.GoBackAsync();
         }
 
         private async void SaveItem()
         {
-            TodoItem item = new TodoItem
+            // TODO try
+            if (EditMode == "Edit")       // (TodoItem.ID > 0)
             {
-                ID = 0,
-                Name = Name,
-                Notes = Notes,
-                Done = Done
-            };
+                int id = ID;
+                await _dbService.UpdateItemAsync(TodoItem);
+                await _dialogService.DisplayAlertAsync("Update", "ID: " + id.ToString(), "OK");
+            }
+            else if (EditMode == "Add")
+            {
+                TodoItem item = new TodoItem
+                {
+                    ID = 0,
+                    Name = Name,
+                    Notes = Notes,
+                    Done = Done
+                };
 
-            await _dbService.SaveItemAsync(item);
-            await _dialogService.DisplayAlertAsync("SaveItem", "eingefügt...", "OK");
+                await _dbService.SaveItemAsync(item);
+                await _dialogService.DisplayAlertAsync("Insert", "NEU eingefügt: " + item.Name, "OK");
+            }
 
-            //Debug.WriteLine("Save Item erreicht");
- 
             await _navigationService.GoBackAsync();
         }
 
         // Properties
+        private int _id;
+        public int ID
+        {
+            get { return _id; }
+            set { SetProperty(ref _id, value); }
+        }
+        private string _strid;
+        public string StrId
+        {
+            get { return _strid; }
+            set { SetProperty(ref _strid, value); }
+        }
         private string _name;
         public string Name
         {
@@ -111,6 +148,13 @@ namespace TodoPd19.ViewModels
         {
             get { return _done; }
             set { SetProperty(ref _done, value); }
+        }
+
+        private string _editMode;    // NMackay Crud
+        public string EditMode
+        {
+            get { return _editMode; }
+            set { SetProperty(ref _editMode, value); }
         }
     }
 }

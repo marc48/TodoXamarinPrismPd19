@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
+using System.Linq;
 using System.Threading.Tasks;
 using TodoPd19.Models;
 
@@ -44,23 +44,39 @@ namespace TodoPd19.Services
         public Task<List<TodoItem>> GetItemsNotDoneAsync()
         {
             return database.QueryAsync<TodoItem>("SELECT * FROM [TodoItem] WHERE [Done] = 0");
+            // SQLite does not have a separate Boolean storage class. 
+            // Instead, Boolean values are stored as integers 0 (false) and 1 (true).
+        }
+
+        public Task<List<TodoItem>> GetItemsDoneAsync()
+        {
+            // SQL
+            return database.QueryAsync<TodoItem>("SELECT * FROM [TodoItem] WHERE [Done] = 1");
         }
 
         public Task<TodoItem> GetItemAsync(int id)
         {
+            // LINQ ??
             return database.Table<TodoItem>().Where(i => i.ID == id).FirstOrDefaultAsync();
         }
 
         public Task<int> SaveItemAsync(TodoItem item) 
         {
-            if (item.ID != 0)
-            {
-                return database.UpdateAsync(item);
-            }
-            else
-            {
-                return database.InsertAsync(item);
-            }
+            return database.InsertAsync(item);
+
+            //if (item.ID != 0)
+            //{
+            //    return database.UpdateAsync(item);
+            //}
+            //else
+            //{
+            //    return database.InsertAsync(item);
+            //}
+        }
+
+        public Task<int> UpdateItemAsync(TodoItem item)
+        {
+            return database.UpdateAsync(item);
         }
 
         public Task<int> DeleteItemAsync(TodoItem item)

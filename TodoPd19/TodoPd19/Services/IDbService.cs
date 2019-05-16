@@ -10,8 +10,10 @@ namespace TodoPd19.Services
     {
         Task<List<TodoItem>> GetItemsAsync();
         Task<List<TodoItem>> GetItemsNotDoneAsync();
+        Task<List<TodoItem>> GetItemsDoneAsync();
         Task<TodoItem> GetItemAsync(int id);
         Task<int> SaveItemAsync(TodoItem item);
+        Task<int> UpdateItemAsync(TodoItem item);
         Task<int> DeleteItemAsync(TodoItem item);
     }
 }
