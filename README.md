@@ -1,4 +1,9 @@
 # TodoPd19
-Todo sample sqlite, Prism DryIoc
+Todo sample from XF, built with Prism MVVM, DryIoc, CRUD with local sqlite database
 
->> anpassen und publizieren!
+Updated: 2019-05-17
+
+## Features
+
+## Notes
+
