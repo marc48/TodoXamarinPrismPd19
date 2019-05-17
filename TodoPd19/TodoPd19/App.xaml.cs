@@ -30,7 +30,6 @@ namespace TodoPd19
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterForNavigation<NavigationPage>();
-            containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>();
             containerRegistry.RegisterForNavigation<TodoListPage, TodoListPageViewModel>();
             containerRegistry.RegisterForNavigation<TodoItemPage, TodoItemPageViewModel>();
 

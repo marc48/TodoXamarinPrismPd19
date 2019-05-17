@@ -4,10 +4,10 @@
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="TodoPd19.Views.TodoItemPage"
-             Title="{Binding Name}">
+             Title="{Binding StrId}">
 
   <StackLayout Margin="20" VerticalOptions="StartAndExpand">
-    <Label Text="{Binding ID}" />
+    <!--<Label Text="{Binding ID}" />-->
     <!--<Entry Text="{Binding ID}" />-->
     <Label Text="Name" />
     <Entry Text="{Binding Name}" />

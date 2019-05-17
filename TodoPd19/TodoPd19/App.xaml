@@ -3,9 +3,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="clr-namespace:Prism.DryIoc;assembly=Prism.DryIoc.Forms"
              x:Class="TodoPd19.App">
-	<Application.Resources>
-
-		<!-- Application resource dictionary -->
-
-	</Application.Resources>
+  <Application.Resources>
+    <ResourceDictionary>
+    <!-- Styles -->
+    <Style TargetType="NavigationPage">
+      <Setter Property="BarBackgroundColor" Value="DarkGreen"/>
+      <!--  http://flounder.com/csharp_color_table.htm   -->
+      <Setter Property="BarTextColor" Value="White"/>
+    </Style>
+    <!-- Styles -->
+    </ResourceDictionary>
+  </Application.Resources>
 </prism:PrismApplication>

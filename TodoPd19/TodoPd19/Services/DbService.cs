@@ -56,22 +56,13 @@ namespace TodoPd19.Services
 
         public Task<TodoItem> GetItemAsync(int id)
         {
-            // LINQ ??
+            // not used?
             return database.Table<TodoItem>().Where(i => i.ID == id).FirstOrDefaultAsync();
         }
 
         public Task<int> SaveItemAsync(TodoItem item) 
         {
             return database.InsertAsync(item);
-
-            //if (item.ID != 0)
-            //{
-            //    return database.UpdateAsync(item);
-            //}
-            //else
-            //{
-            //    return database.InsertAsync(item);
-            //}
         }
 
         public Task<int> UpdateItemAsync(TodoItem item)

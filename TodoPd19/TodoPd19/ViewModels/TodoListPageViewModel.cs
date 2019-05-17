@@ -20,8 +20,8 @@ namespace TodoPd19.ViewModels
         public int ResumeAtTodoId { get; set; }      // hier ??? (war app.cs)
 
         public DelegateCommand ItemAddedCommand { get; set; }
-        public DelegateCommand NewCommand { get; set; }
-        public DelegateCommand ListCommand { get; set; }
+        public DelegateCommand ListDoneCommand { get; set; }
+        public DelegateCommand ListNotDoneCommand { get; set; }
 
         public DelegateCommand<TodoItem> ItemSelectedCommand => new DelegateCommand<TodoItem>(OnItemSelectedCommand);
 
@@ -33,37 +33,36 @@ namespace TodoPd19.ViewModels
             _dbService = dbService;
 
             ItemAddedCommand = new DelegateCommand(AddNewItem);
-            NewCommand = new DelegateCommand(AddFixEntry);
-            ListCommand = new DelegateCommand(ListNotDoneEntries);
+            ListNotDoneCommand = new DelegateCommand(ListNotDoneEntries);
+            ListDoneCommand = new DelegateCommand(ListDoneEntries);
 
         }
 
         private async void OnItemSelectedCommand(TodoItem item)
         {
-            //await _dialogService.DisplayAlertAsync("JAKOB", "Item" + lexitem.ToString() + " getappt", "OK");
             var p = new NavigationParameters();
             p.Add("item", item);
 
             await _navigationService.NavigateAsync("TodoItemPage", p);
         }
 
-        private async void AddFixEntry()
-        {
-            TodoItem item = new TodoItem
-            {
-                ID = 0,
-                Name = "FixEintrag",
-                Notes = "Notes: Text (Länge xxxxxxxxxxxxxxx)",
-                Done = false
-            };
+        //private async void AddFixEntry()
+        //{
+        //    TodoItem item = new TodoItem
+        //    {
+        //        ID = 0,
+        //        Name = "FixEntry",
+        //        Notes = "Notes: Text",
+        //        Done = false
+        //    };
 
-            await _dbService.SaveItemAsync(item);
-            await _dialogService.DisplayAlertAsync("AddFixEntry", "eingefügt...", "OK");
+        //    await _dbService.SaveItemAsync(item);
+        //    await _dialogService.DisplayAlertAsync("AddFixEntry", "Item added...", "OK");
 
-            // Refresh Obs.collection
-            var res = await _dbService.GetItemsAsync();
-            TodoItems = new ObservableCollection<TodoItem>(res);
-        }
+        //    // Refresh Obs.collection
+        //    var res = await _dbService.GetItemsAsync();
+        //    TodoItems = new ObservableCollection<TodoItem>(res);
+        //}
 
         private async void ListNotDoneEntries()   
         {
@@ -71,8 +70,16 @@ namespace TodoPd19.ViewModels
             var res = await _dbService.GetItemsNotDoneAsync();
             TodoItems = new ObservableCollection<TodoItem>(res);  // (await _dbService.GetItemsAsync());
             anzahl = _todoitems.Count;
-            await _dialogService.DisplayAlertAsync("Undone", "Obs.collection Anzahl Undone: " + anzahl.ToString(), "OK");
+            await _dialogService.DisplayAlertAsync("Undone", "Obs.collection count Undone: " + anzahl.ToString(), "OK");
+        }
 
+        private async void ListDoneEntries()
+        {
+            int anzahl;
+            var res = await _dbService.GetItemsDoneAsync();
+            TodoItems = new ObservableCollection<TodoItem>(res); 
+            anzahl = _todoitems.Count;
+            await _dialogService.DisplayAlertAsync("Done", "Obs.collection count Done: " + anzahl.ToString(), "OK");
         }
 
         private async void AddNewItem()
@@ -84,28 +91,23 @@ namespace TodoPd19.ViewModels
         {
             // Fill List
             // Reset the 'resume' id, since we just want to re-start here
-            ResumeAtTodoId = -1;
+            //ResumeAtTodoId = -1;
             //listView.ItemsSource = await App.Database.GetItemsAsync();
 
             try
             {
-                //IsItemSelected = false;
                 SelectedItem = null;
 
                 var res = await _dbService.GetItemsAsync();
 
                 if (!Equals(res, null))
-                    //_deviceService.BeginInvokeOnMainThread(() =>
                 {
                      TodoItems = new ObservableCollection<TodoItem>(res);
-                        //TestItemCount = res.Count;
                 }
-                //return true;
             }
             catch (Exception ex)
             {
                 await _dialogService.DisplayAlertAsync("Error", ex.Message, "OK");
-                //return false;
             }
         }
 

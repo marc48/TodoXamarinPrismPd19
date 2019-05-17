@@ -4,12 +4,8 @@ using Prism.Navigation;
 using Prism.Navigation.Xaml;
 using Prism.Services;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 using TodoPd19.Models;
 using TodoPd19.Services;
-using TodoPd19.StringResources;
 
 namespace TodoPd19.ViewModels
 {
@@ -46,27 +42,22 @@ namespace TodoPd19.ViewModels
 
         public async override void OnNavigatingTo(INavigationParameters parameters)
         {
-            // >>> wird nicht über DB eingesetzt, sondern über Parameter
             if (parameters.ContainsKey("item"))
             {
-                //var temp = (TodoItem)parameters["item"];  
-                //TodoItem _todoItem = new TodoItem();
-                TodoItem = parameters.GetValue<TodoItem>(NavigationParams.TodoItemId);
+                TodoItem = parameters.GetValue<TodoItem>("item");   
                 ID = TodoItem.ID;
-                //StrId = "ID: " + StrId.ToString();
                 Name = TodoItem.Name;
                 Notes = TodoItem.Notes;
                 Done = TodoItem.Done;
-                //TodoItem = await _dbService.GetItemAsync(id);
+                // Item is filled by parameters, not by DB - correct solution?
+                // TodoItem = await _dbService.GetItemAsync(id);
                 EditMode = "Edit";
-
-                //_dialogService.DisplayAlertAsync("Item", TodoItem.ID.ToString() + ", " + TodoItem.Name, "OK");
-
+                _strid = TodoItem.Name + " (" + TodoItem.ID.ToString() + ")";
             }
             else
             {
                 EditMode = "Add";
-                //TodoItem = new TodoItem();   // sonst NULL exception beim Save neuer DS
+                _strid = "(New..)";
             }
         }
 
@@ -99,7 +90,7 @@ namespace TodoPd19.ViewModels
                 TodoItem.Notes = Notes;
                 TodoItem.Done = Done;
                 await _dbService.UpdateItemAsync(TodoItem);
-                //await _dialogService.DisplayAlertAsync("Update", "ID: " + id.ToString(), "OK");
+                //await _dialogService.DisplayAlertAsync("Update", "entry ID: " + id.ToString(), "OK");
             }
             else if (EditMode == "Add")
             {
@@ -112,7 +103,7 @@ namespace TodoPd19.ViewModels
                 };
 
                 await _dbService.SaveItemAsync(item);
-                //await _dialogService.DisplayAlertAsync("Insert", "NEU eingefügt: " + item.Name, "OK");
+                //await _dialogService.DisplayAlertAsync("Insert", "New entry..." + item.Name, "OK");
             }
 
             await _navigationService.GoBackAsync();
@@ -125,24 +116,28 @@ namespace TodoPd19.ViewModels
             get { return _id; }
             set { SetProperty(ref _id, value); }
         }
+
         private string _strid;
         public string StrId
         {
             get { return _strid; }
             set { SetProperty(ref _strid, value); }
         }
+
         private string _name;
         public string Name
         {
             get { return _name; }
             set { SetProperty(ref _name, value); }
         }
+
         private string _notes;
         public string Notes
         {
             get { return _notes; }
             set { SetProperty(ref _notes, value); }
         }
+
         private bool _done;
         public bool Done
         {
