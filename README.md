@@ -14,3 +14,4 @@ Update on 2019-05-17
 * Display Alert Async (yes/no)
 
 ## Notes
+* TODO: Marker for Todo items "Done"
