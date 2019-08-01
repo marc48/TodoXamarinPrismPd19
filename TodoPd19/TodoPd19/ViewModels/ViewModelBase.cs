@@ -7,7 +7,12 @@ using System.Text;
 
 namespace TodoPd19.ViewModels
 {
-    public class ViewModelBase : BindableBase, INavigationAware, IDestructible
+    public interface IInitialize
+    {
+        void OnInitialized(INavigationParameters parameters);
+    }
+
+    public class ViewModelBase : BindableBase, IInitialize, IDestructible
     {
         protected INavigationService NavigationService { get; private set; }
 
@@ -41,6 +46,11 @@ namespace TodoPd19.ViewModels
         public virtual void Destroy()
         {
 
+        }
+
+        public void OnInitialized(INavigationParameters parameters)
+        {
+            throw new NotImplementedException();
         }
     }
 }

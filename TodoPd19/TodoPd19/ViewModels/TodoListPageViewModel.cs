@@ -38,10 +38,10 @@ namespace TodoPd19.ViewModels
 
         }
 
-        private async void OnItemSelectedCommand(TodoItem item)
+        private async void OnItemSelectedCommand(TodoItem senditem)
         {
             var p = new NavigationParameters();
-            p.Add("item", item);
+            p.Add("item", senditem);
 
             await _navigationService.NavigateAsync("TodoItemPage", p);
         }
