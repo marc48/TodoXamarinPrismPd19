@@ -44,17 +44,12 @@ namespace TodoPd19.ViewModels
         {
             if (parameters.ContainsKey("item"))
             {
-                
-                //_todoItem = new TodoItem();
-                //_todoItem = parameters.GetValue<TodoItem>("item");
                 TodoItem = (TodoItem)parameters["item"];
-                _dialogService.DisplayAlertAsync("On NavTo", ItemsExpander(TodoItem), "OK");
+                //_dialogService.DisplayAlertAsync("On NavTo", ItemsExpander(TodoItem), "OK");
                 TodoItem.ID = TodoItem.ID;
                 Name = TodoItem.Name;
                 Notes = TodoItem.Notes;
                 _todoItem.Done = TodoItem.Done;
-                // Item is filled by parameters, not by DB - correct solution?
-                // TodoItem = await _dbService.GetItemAsync(id);
                 EditMode = "Edit";
                 StrId = _todoItem.Name + " (" + _todoItem.ID.ToString() + ")";  // ???
             }
@@ -93,33 +88,24 @@ namespace TodoPd19.ViewModels
 
         private async void SaveItem()
         {
-            //var todoItem = (TodoItem)BindingContext;
-            //await _dbService.SaveItemAsync(TodoItem);
             // TODO try
             if (EditMode == "Edit")       // (TodoItem.ID > 0)
             {
-            //    int id = TodoItem.ID;
-            //    await _dbService.GetItemAsync(id);
-            //    //TodoItem item = new TodoItem;
-                //int id = ID;
                 TodoItem.Name = Name;
                 TodoItem.Notes = Notes;
                 TodoItem.Done = Done;
                 await _dbService.UpdateItemAsync(TodoItem);
-            //    //await _dialogService.DisplayAlertAsync("Update", "entry ID: " + id.ToString(), "OK");
+                //await _dialogService.DisplayAlertAsync("Update", "entry ID: " + id.ToString(), "OK");
             }
             else if (EditMode == "Add")
             {
                 TodoItem item = new TodoItem();
-                //{
-                    //ID = 0,
                 item.Name = Name;
                 item.Notes = Notes;
                 item.Done = Done;
-                //};
 
                 await _dbService.InsertItemAsync(item);
-            //    //await _dialogService.DisplayAlertAsync("Insert", "New entry..." + item.Name, "OK");
+                //await _dialogService.DisplayAlertAsync("Insert", "New entry..." + item.Name, "OK");
             }
 
             await _navigationService.GoBackAsync();
@@ -139,13 +125,6 @@ namespace TodoPd19.ViewModels
             get { return _strid; }
             set { SetProperty(ref _strid, value); }
         }
-
-        //private int _id;
-        //public int ID
-        //{
-        //    get { return _id; }
-        //    set { SetProperty(ref _id, value); }
-        //}
 
         private string _name;
         public string Name

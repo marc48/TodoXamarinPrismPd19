@@ -46,24 +46,6 @@ namespace TodoPd19.ViewModels
             await _navigationService.NavigateAsync("TodoItemPage", p);
         }
 
-        //private async void AddFixEntry()
-        //{
-        //    TodoItem item = new TodoItem
-        //    {
-        //        ID = 0,
-        //        Name = "FixEntry",
-        //        Notes = "Notes: Text",
-        //        Done = false
-        //    };
-
-        //    await _dbService.SaveItemAsync(item);
-        //    await _dialogService.DisplayAlertAsync("AddFixEntry", "Item added...", "OK");
-
-        //    // Refresh Obs.collection
-        //    var res = await _dbService.GetItemsAsync();
-        //    TodoItems = new ObservableCollection<TodoItem>(res);
-        //}
-
         private async void ListNotDoneEntries()   
         {
             int anzahl;
@@ -89,11 +71,6 @@ namespace TodoPd19.ViewModels
 
         public async override void OnNavigatedTo(INavigationParameters parameters)
         {
-            // Fill List
-            // Reset the 'resume' id, since we just want to re-start here
-            //ResumeAtTodoId = -1;
-            //listView.ItemsSource = await App.Database.GetItemsAsync();
-
             try
             {
                 SelectedItem = null;
