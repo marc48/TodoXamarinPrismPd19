@@ -89,7 +89,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TodoPd19\TodoPd19.csproj">
-      <Project>{A682884C-CB44-4A89-B752-27BB634E0ABE}</Project>
+      <Project>{66EBBC5D-BE2E-417F-90B9-193E60F0F4CA}</Project>
       <Name>TodoPd19</Name>
     </ProjectReference>
   </ItemGroup>
