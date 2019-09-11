@@ -6,19 +6,19 @@
              x:Class="TodoPd19.Views.TodoItemPage"
              Title="{Binding StrId}">
 
-  <StackLayout Margin="20" VerticalOptions="StartAndExpand">
-    <!--<Label Text="{Binding ID}" />-->
-    <!--<Entry Text="{Binding ID}" />-->
-    <Label Text="Name" />
-    <Entry Text="{Binding Name}" />
-    <Label Text="Notes" />
-    <Entry Text="{Binding Notes}" />
-    <Label Text="Done" />
-    <Switch IsToggled="{Binding Done, Mode=TwoWay}" />
-    <Button Text="Save" Command="{Binding OnSaveClicked}" />
-    <Button Text="Delete" Command="{Binding OnDeleteClicked}" />
-    <Button Text="Cancel" Command="{Binding OnCancelClicked}" />
-    <Button Text="Speak" Command="{Binding OnSpeakClicked}" />
-  </StackLayout>
+    <StackLayout Margin="20" VerticalOptions="StartAndExpand">
+        <!--<Label Text="{Binding ID}" />-->
+        <!--<Entry Text="{Binding ID}" />-->
+        <Label Text="Name" />
+        <Entry Text="{Binding Name}" Visual="Material"/>
+        <Label Text="Notes" />
+        <Entry Text="{Binding Notes}" Visual="Material" />
+        <Label Text="Done" />
+        <Switch IsToggled="{Binding Done, Mode=TwoWay}" Visual="Material" />
+        <Button Text="Save" Command="{Binding OnSaveClicked}"  Visual="Material"/>
+        <Button Text="Delete" Command="{Binding OnDeleteClicked}"  Visual="Material"/>
+        <Button Text="Cancel" Command="{Binding OnCancelClicked}"  Visual="Material"/>
+        <Button Text="Speak" Command="{Binding OnSpeakClicked}"  Visual="Material"/>
+    </StackLayout>
 
 </ContentPage>

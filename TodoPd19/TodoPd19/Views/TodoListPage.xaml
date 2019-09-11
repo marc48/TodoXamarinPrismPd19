@@ -25,7 +25,7 @@
     </ListView.Behaviors>
     <ListView.ItemTemplate>
       <DataTemplate>
-        <TextCell Text="{Binding Name}" Detail="{Binding Notes}" />
+        <TextCell Text="{Binding Name}" Detail="{Binding Notes}"/>
         <!--<ViewCell>
           <StackLayout Margin="20,0,0,0" Orientation="Horizontal" HorizontalOptions="FillAndExpand">
             <Label Text="{Binding Name}" VerticalTextAlignment="Center" HorizontalOptions="StartAndExpand" />
