@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.572
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29306.81
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodoPd19", "TodoPd19\TodoPd19\TodoPd19.csproj", "{66EBBC5D-BE2E-417F-90B9-193E60F0F4CA}"
 EndProject
@@ -182,7 +182,8 @@ Global
 		{9156AC10-AED8-442F-B23F-87B0414CE97C}.Debug|iPhoneSimulator.ActiveCfg = Debug|iPhoneSimulator
 		{9156AC10-AED8-442F-B23F-87B0414CE97C}.Debug|iPhoneSimulator.Build.0 = Debug|iPhoneSimulator
 		{9156AC10-AED8-442F-B23F-87B0414CE97C}.Debug|x64.ActiveCfg = Debug|iPhone
-		{9156AC10-AED8-442F-B23F-87B0414CE97C}.Debug|x86.ActiveCfg = Debug|iPhone
+		{9156AC10-AED8-442F-B23F-87B0414CE97C}.Debug|x86.ActiveCfg = Debug|iPhoneSimulator
+		{9156AC10-AED8-442F-B23F-87B0414CE97C}.Debug|x86.Build.0 = Debug|iPhoneSimulator
 		{9156AC10-AED8-442F-B23F-87B0414CE97C}.Release|Any CPU.ActiveCfg = Release|iPhone
 		{9156AC10-AED8-442F-B23F-87B0414CE97C}.Release|ARM.ActiveCfg = Release|iPhone
 		{9156AC10-AED8-442F-B23F-87B0414CE97C}.Release|iPhone.ActiveCfg = Release|iPhone
